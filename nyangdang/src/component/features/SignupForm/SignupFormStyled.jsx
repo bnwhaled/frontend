@@ -42,6 +42,7 @@ const StIdBox = styled.div`
 const StPwBox = styled.div`
     display: flex;
     flex-direction: column;
+    gap:32px;
 `;
 const StInputBox = styled.div`
     display: block;
