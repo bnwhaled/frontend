@@ -1,12 +1,9 @@
-import React from 'react';
-import { StContainer } from './LayoutStyle';
+
+import React from "react";
+import { StContainer } from "./LayoutStyle";
 
 function Layout() {
-  return (
-    <StContainer>
-        
-    </StContainer>
-  )
+  return <StContainer></StContainer>;
 }
 
-export default Layout
+export default Layout;
