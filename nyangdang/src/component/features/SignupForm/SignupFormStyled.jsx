@@ -27,6 +27,7 @@ const StContainerForm = styled.form`
 `;
 
 const StLabel = styled.label`
+
 `;
 const StInput = styled.input`
     display: block;

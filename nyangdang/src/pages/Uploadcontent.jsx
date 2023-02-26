@@ -1,7 +1,8 @@
 import React from "react";
+import UploadcontentForm from "../component/features/UploadcontentForm/UploadcontentForm";
 
 function Uploadcontent() {
-  return <div>Uploadcontent</div>;
+  return <UploadcontentForm />;
 }
 
 export default Uploadcontent;
