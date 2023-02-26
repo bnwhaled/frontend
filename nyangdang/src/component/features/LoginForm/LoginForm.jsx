@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import axios from "axios";
-import { Cookies } from 'react-cookie';
+import { Cookies, useCookies } from 'react-cookie';
 import useInput from '../../../hook/useInput';
 import { StContainerForm, StButton, StInput, StLabel, StBtnBox, StContainer, StInputBox, StImg } from './LoginFormStyled';
 import kakao from "../../../assets/image/kakao_login_large_narrow.png";
@@ -15,9 +15,10 @@ function LoginForm() {
   const [status, setStatus] = useState("인증 되기 전");
   const [data, setData] = useState([]);
   const [bool, setBool] = useState(false);
+  const [cookies, setCookies] = useCookies(['user']); // 'user' : 쿠키 이름
 
   const BASE_URL = "http://3.35.136.146:8080/api";
-  const cookies = new Cookies;
+  // const cookies = new Cookies;
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -36,7 +37,11 @@ function LoginForm() {
         username: userId,
         password : userPw,
       }, {withCredentials: true}
-    );
+    ).then(response => {
+      setCookies('user', response.data.id);  // setCookie(쿠키이름, 쿠키에 넣을 값, 옵션)
+    }).catch(error => {
+      console.log(error)
+    });
     resetId();
     resetPw();
     console.log("response", response);

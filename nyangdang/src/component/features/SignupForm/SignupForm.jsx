@@ -35,6 +35,10 @@ function SignupForm() {
       alert("비밀번호를 입력해주세요");
       return;
     }
+    if(pwConfirm === "") {
+      alert("비밀번호확인을 입력해주세요");
+      return;
+    }
     pwCheck();
     if(!isPwConfirm) return;
 
