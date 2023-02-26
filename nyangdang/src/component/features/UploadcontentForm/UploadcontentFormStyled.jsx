@@ -7,7 +7,7 @@ const StContainer = styled.div`
   justify-content:center;
 `;
 
-const StContentWrap = styled.div`
+const StContentWrap = styled.form`
   display: flex;
   justify-content: center;
   align-items: center;
@@ -22,17 +22,45 @@ const StContentWrap = styled.div`
 
 const StImagebox = styled.div`
   display: flex;
-  justify-content: center;
+  /* justify-content: center; */
   align-items: center;
   height: 100px;
   width: 100%;
+  position: relative;
+
 `;
 const StLabel = styled.label`
   width:10%;
   font-size:22px;
 `;
+const StImgLabel = styled.label`
+  display: inline-block;
+  padding: 10px 20px;
+  color: #fff;
+  /* vertical-align: middle; */
+  background-color: #999999;
+  cursor: pointer;
+  height: 24px;
+  z-index: 1;
+`;
 const StImgInput = styled.input`
-  background-color: green;
+  position: absolute;
+  z-index: 0;
+  left:32px;
+  /*width: 0;
+  height: 0;
+  padding: 0;
+  overflow: hidden;
+  border: 0; */
+`;
+const StImgInputAdd = styled.input`
+  display: inline-block;
+  height: 40px;
+  padding: 0 10px;
+  vertical-align: middle;
+  border: 1px solid #dddddd;
+  width: 78%;
+  color: #999999;
 `;
 const StTitleBox = styled.div`
   display:flex;
@@ -72,4 +100,4 @@ const StBtnBox = styled.div`
 `;
 
 
-export { StContentWrap, StContainer, StImagebox, StImgInput, StInput, StButton, StLabel, StInputContent, StBtnBox, StTitleBox };
+export { StContentWrap, StImgInputAdd, StImgLabel, StContainer, StImagebox, StImgInput, StInput, StButton, StLabel, StInputContent, StBtnBox, StTitleBox };
