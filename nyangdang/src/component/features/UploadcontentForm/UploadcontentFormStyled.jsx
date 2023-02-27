@@ -14,7 +14,6 @@ const StContentWrap = styled.form`
   flex-direction: column;
   width:600px;
   height:100%;
-  padding-top: 68px;
   h3 {
     font-size:32px;
   }
@@ -35,7 +34,7 @@ const StLabel = styled.label`
 `;
 const StImgLabel = styled.label`
   display: inline-block;
-  padding: 10px 20px;
+  padding: 6px 14px;
   color: #fff;
   /* vertical-align: middle; */
   background-color: #999999;
@@ -46,7 +45,7 @@ const StImgLabel = styled.label`
 const StImgInput = styled.input`
   position: absolute;
   z-index: 0;
-  left:32px;
+  left:20px;
   /*width: 0;
   height: 0;
   padding: 0;

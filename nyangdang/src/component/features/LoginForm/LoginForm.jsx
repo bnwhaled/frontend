@@ -18,7 +18,7 @@ function LoginForm() {
   const [bool, setBool] = useState(false);
   const [cookies, setCookies] = useCookies(['user']); // 'user' : 쿠키 이름
 
-  const BASE_URL = "http://3.35.136.146:8080/api";
+  const BASE_URL = "http://3.36.51.159:8080/api/user";
   // const cookies = new Cookies;
 
   const submitHandler = async (e) => {

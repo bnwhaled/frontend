@@ -1,39 +1,34 @@
 import React from "react";
 import {
-  StBoxWrap,
-  StBoxWrap2,
-  StButtonWrap,
-  StContentWrap,
+  StContainer,
+  StImg,
+  StBoxRight,
+  StComment,
+  StContent,
+  StWriteBox,
+  StInput,
+  StLabel
 } from "./DetailFormStyled";
 import { Link, useNavigate } from "react-router-dom";
+import Header from "../../ui/Header/Header";
+
 
 function DetailForm() {
   const navigate = useNavigate();
   return (
     <>
-      <div>
-        {" "}
-        <button onClick={() => navigate(-1)}>Back</button>{" "}
-      </div>
-      <StContentWrap>
-        Detail
-        <StBoxWrap>
-          <div>
-            <div>image</div>
-          </div>
-          <StBoxWrap2>
-            <div>내용</div>
-            <div>댓글</div>
-            <input placeholder="댓글작성" type="text" />
-          </StBoxWrap2>
-        </StBoxWrap>
-        <StButtonWrap>
-          <Link to={`/Fixcontent`}>
-            <button>수정</button>
-          </Link>
-          <button>삭제</button>
-        </StButtonWrap>
-      </StContentWrap>
+      <Header />
+      <StContainer>
+        <StImg>+image</StImg>
+        <StBoxRight>
+          <StContent></StContent>
+          <StComment></StComment>
+          <StWriteBox>
+            <StLabel>댓글 작성</StLabel>
+            <StInput />
+          </StWriteBox>
+        </StBoxRight>
+      </StContainer>
     </>
   );
 }
