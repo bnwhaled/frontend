@@ -56,4 +56,63 @@ const StInput = styled.input`
   position: relative;
 `;
 
+<<<<<<< HEAD
 export { StContainer, StImg, StBoxRight, StContent, StComment, StWriteBox, StInput, StLabel };
+=======
+const StimageBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 150px;
+  height: 150px;
+  border: 1px solid black;
+  padding: 30px;
+`;
+
+const StContentBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 80px;
+  border: 1px solid black;
+  padding: 10px;
+`;
+const StCommentBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px;
+  height: 60px;
+  border: 1px solid black;
+  padding: 10px;
+`;
+
+const StAddCommentBox = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+const StInputBox = styled.input`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  width: 150px;
+  height: 10px;
+`;
+
+export {
+  StContentWrap,
+  StBoxWrap,
+  StBoxWrap2,
+  StButtonWrap,
+  StimageBox,
+  StContentBox,
+  StCommentBox,
+  StAddCommentBox,
+  StInputBox,
+};
+>>>>>>> 99c13daaa632af8402ac993b202b03eae08b92c2
