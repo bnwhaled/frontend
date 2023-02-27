@@ -15,4 +15,11 @@ const StContentWrap = styled.div`
   flex-direction: column;
 `;
 
-export { StHeader, StContentWrap };
+const StImageBoxWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+`;
+
+export { StHeader, StContentWrap, StImageBoxWrap };
