@@ -43,11 +43,15 @@ function SignupForm() {
       console.log(error);
     })
   };
-  // 
+
+  // 아이디 중복확인
   useEffect(()=>{
     setIdCheck(false);
   },[userId])
-
+  // 비밀번호 확인
+  useEffect(()=>{
+    setIsPwConfirm(false);
+  }, [pwConfirm]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
