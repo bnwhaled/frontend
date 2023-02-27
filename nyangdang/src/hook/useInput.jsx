@@ -10,6 +10,7 @@ const useInput = (handler) => {
     const reset = () => {
         setValue('');
     }
+  
     return [ value, changeHandler, reset ];
 };
 

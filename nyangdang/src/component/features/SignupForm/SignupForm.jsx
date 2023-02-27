@@ -3,47 +3,94 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import useInput from "../../../hook/useInput";
 import { StContainerForm, StInput, StLabel, StIdBox, StPwBox, StContainer, StInputBox, StButtonCheck, StButton } from "./SignupFormStyled";
+import { useCallback, useEffect, useState } from 'react';
 
 function SignupForm() {
   const navigate = useNavigate();
 
   const [userId, changeUserId ] = useInput((e)=>e);
   const [userPw, changeUserPw ] = useInput((e)=>e);
+  const [isPwConfirm, setIsPwConfirm] = useState(false);
+  const [pwConfirm, changePwConfirm, resetPwConfirm] = useInput((e)=>e);
   const [cookies, setCookies] = useCookies(['user']);
+  const [idCheck, setIdCheck] = useState(false);
 
-  const BASE_URL = "http://3.35.136.146:8080/api";
+  const BASE_URL = "http://3.36.51.159:8080/api/user";
+
+  console.log(idCheck);
+
+  const pwCheck = () => {
+    if(userPw !== pwConfirm){
+      alert("비밀번호가 일치하지 않습니다");
+      resetPwConfirm();
+    } else {
+      setIsPwConfirm(true);
+    }
+  }
+
+  const onIdCheckHandler = async() => {
+    // 아이디 중복확인
+    await axios.post(`${BASE_URL}/signup`, {
+      username:userId,
+    }, {
+      withCredentials:true,
+    })
+    .then((res)=>{
+      console.log(res);
+      setIdCheck(true);
+    })
+    .catch((error)=>{
+      console.log(error);
+    })
+  };
+
+  // 아이디 중복확인
+  useEffect(()=>{
+    setIdCheck(false);
+  },[userId])
+  // 비밀번호 확인
+  useEffect(()=>{
+    setIsPwConfirm(false);
+  }, [pwConfirm]);
 
   const submitHandler = async (e) => {
     e.preventDefault();
+    console.log(111);
     if(userId === ""){
       alert ("아이디를 입력해주세요");
       return;
     }
-    if( userPw === "") {
+    if(userPw === "") {
       alert("비밀번호를 입력해주세요");
       return;
     }
+    if(pwConfirm === "") {
+      alert("비밀번호확인을 입력해주세요");
+      return;
+    }
+    pwCheck();
+    if(!isPwConfirm) return;
+
+    // 아이디, 비밀번호, 비밀번호 확인 입력 후 회원가입
     const body = {
       username: userId,
       password: userPw,
     };
-    await axios.post(`${BASE_URL}/auth/signup`, body, {
+    await axios.post(`${BASE_URL}/signup`, body, {
       withCredentials: true,
     })
     .then((res) => {
       setCookies('user', res.data.id);
-      console.log("res1",res);
+      // console.log("res1",res);
       alert("회원가입 성공");
+      navigate('/login');
       return res;
-      // navigate('/login');
     })
     .catch((error)=>{
       console.log(error);
       return error;
     })
-    // console.log("res2",response);
   }
-
 
   const keyDownHandler = (e) => {
     if(e.key === "Enter") {return submitHandler};
@@ -54,7 +101,7 @@ function SignupForm() {
       <h3>회원가입</h3>
       <StContainerForm onSubmit={submitHandler}>
         <StIdBox>
-          <StLabel> 아이디 
+          <StLabel htmlFor='id'> 아이디 
             <StInputBox>
               <StInput 
                 id="id"
@@ -65,10 +112,10 @@ function SignupForm() {
               />
             </StInputBox>
           </StLabel>
-          <StButtonCheck> 중복확인 </StButtonCheck>
+          <StButtonCheck type='button' onClick={onIdCheckHandler}> 중복확인 </StButtonCheck>
         </StIdBox>
         <StPwBox>
-          <StLabel> 비밀번호 
+          <StLabel htmlFor='pw'> 비밀번호 
             <StInputBox>
               <StInput 
                 id="pw"
@@ -76,13 +123,21 @@ function SignupForm() {
                 placeholder='비밀번호를 입력하세요' 
                 value={userPw}
                 onChange={changeUserPw}
-                onKeyDown={keyDownHandler}
               />
             </StInputBox>
           </StLabel>
-          {/* <StLabel> 비밀번호 확인  
-            <StInput placeholder="비밀번호를 입력해주세요" />
-          </StLabel> */}
+            <StLabel htmlFor='pwConfirm'> 비밀번호 확인  
+              <StInputBox>
+                  <StInput 
+                    placeholder="비밀번호를 다시 입력해주세요" 
+                    id="pwConfirm"
+                    type="password"
+                    value={pwConfirm}
+                    onChange={changePwConfirm}
+                    onKeyDown={keyDownHandler}
+                  />
+              </StInputBox>
+            </StLabel>
         </StPwBox>
         <StButton type="submit"> 회원가입 </StButton>
       </StContainerForm>

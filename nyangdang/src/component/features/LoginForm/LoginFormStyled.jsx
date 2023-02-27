@@ -69,7 +69,25 @@ const StButton = styled.button`
     border:none;
     padding:16px 10px;
     cursor: pointer;
+    width:50%;
     margin-top:12px;
+    &:hover {
+        transform: translateY(-3px);
+    }
+`;
+const StImg = styled.img`
+    font-size: 24px;
+    cursor: pointer;
+    width:200px;
+    position: absolute;
+    top:500px;
+    &:hover {
+        transform: translateY(-3px);
+    }
+`;
+const StBtnBox = styled.div`
+    display: flex;
+    gap: 12px;
 `;
 
-export {StContainerForm, StButton, StInput, StLabel, StIdBox, StPwBox, StContainer, StInputBox, StButtonCheck };
+export {StContainerForm, StBtnBox, StImg, StButton, StInput, StLabel, StIdBox, StPwBox, StContainer, StInputBox, StButtonCheck };

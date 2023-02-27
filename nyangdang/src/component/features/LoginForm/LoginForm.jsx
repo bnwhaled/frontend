@@ -1,17 +1,13 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import { Cookies } from "react-cookie";
-import useInput from "../../../hook/useInput";
-import {
-  StContainerForm,
-  StButton,
-  StInput,
-  StLabel,
-  StContainer,
-  StInputBox,
-} from "./LoginFormStyled";
+import { Cookies, useCookies } from 'react-cookie';
+import useInput from '../../../hook/useInput';
+import { StContainerForm, StButton, StInput, StLabel, StBtnBox, StContainer, StInputBox, StImg } from './LoginFormStyled';
+import kakao from "../../../assets/image/kakao_login_large_narrow.png";
 
+
+const url = 'https://kauth.kakao.com/oauth/authorize?client_id=513dbab402347b4ce9abb443337b09a6&redirect_uri=http://localhost:3000/api/user/kakao/callback&response_type=code';
 function LoginForm() {
   const navigate = useNavigate();
 
@@ -19,14 +15,18 @@ function LoginForm() {
   const [userPw, changeUserPw, resetPw] = useInput((e) => e);
   const [status, setStatus] = useState("인증 되기 전");
   const [data, setData] = useState([]);
+  const [bool, setBool] = useState(false);
+  const [cookies, setCookies] = useCookies(['user']); // 'user' : 쿠키 이름
 
-  const BASE_URL = "http://3.35.136.146:8080/api";
-  const cookies = new Cookies();
+  const BASE_URL = "http://3.36.51.159:8080/api/user";
+  // const cookies = new Cookies;
 
   const submitHandler = async (e) => {
     e.preventDefault();
-    if (userId === "") {
-      alert("아이디를 입력해주세요");
+    if(bool) return;
+    if( userId === ""){
+      alert ("아이디를 입력해주세요");
+
       return;
     }
     if (userPw === "") {
@@ -34,13 +34,16 @@ function LoginForm() {
       return;
     }
     const response = await axios.post(
-      `${BASE_URL}/auth/login`,
+      `${BASE_URL}/login`,
       {
         username: userId,
-        password: userPw,
-      },
-      { withCredentials: true }
-    );
+        password : userPw,
+      }, {withCredentials: true}
+    ).then(response => {
+      setCookies('user', response.data.id);  // setCookie(쿠키이름, 쿠키에 넣을 값, 옵션)
+    }).catch(error => {
+      console.log(error)
+    });
     resetId();
     resetPw();
     console.log("response", response);
@@ -56,7 +59,7 @@ function LoginForm() {
   const getData = async () => {
     const accessToken = cookies.get("accessToken");
     console.log("accessToken", accessToken);
-    const response = await axios.get(`${BASE_URL}/posts`, {
+    const response = await axios.get(`${BASE_URL}/signup`,{
       headers: {
         "Content-Type": "application/json",
         Authorization: `Bearer ${accessToken}`, // 누가 요청했는 지 알려준다. (토큰 전달)
@@ -67,6 +70,9 @@ function LoginForm() {
   };
 
   // const jwtToken = await Login(loginPayload)
+  const kakaoBtnClickHandler = () => {
+    window.open(url);
+  };
 
   const keyDownHandler = (e) => {
     if (e.key === "Enter") {
@@ -105,9 +111,18 @@ function LoginForm() {
             />
           </StInputBox>
         </StLabel>
-        <StButton type="submit"> 로그인 </StButton>
-        <button onClick={getData}> 리스트 요청 </button>
+        <StBtnBox>
+          <StButton type='submit'> 로그인 </StButton>
+          <StButton onClick={()=>{
+            navigate('/signup');
+              setBool(true);
+            }
+          }> 회원가입 </StButton>
+        </StBtnBox>
+        {/* <button onClick={getData}> 리스트 요청 </button> */}
       </StContainerForm>
+      <StImg src={kakao} id="login-kakao-btn" onClick={kakaoBtnClickHandler}/>
+
     </StContainer>
   );
 }
