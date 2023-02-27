@@ -3,7 +3,7 @@ import axios from "axios";
 import { useCookies } from "react-cookie";
 import useInput from "../../../hook/useInput";
 import { StContainerForm, StInput, StLabel, StIdBox, StPwBox, StContainer, StInputBox, StButtonCheck, StButton } from "./SignupFormStyled";
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 function SignupForm() {
   const navigate = useNavigate();
@@ -13,8 +13,7 @@ function SignupForm() {
   const [isPwConfirm, setIsPwConfirm] = useState(false);
   const [pwConfirm, changePwConfirm, resetPwConfirm] = useInput((e)=>e);
   const [cookies, setCookies] = useCookies(['user']);
-
-  const BASE_URL = "http://3.35.136.146:8080/api";
+  const [idCheck, setIdCheck] = useState(false);
 
   const pwCheck = () => {
     if(userPw !== pwConfirm){
@@ -25,13 +24,39 @@ function SignupForm() {
     }
   }
 
+  const onIdCheckHandler = async() => {
+    // 아이디 중복확인 api 확인하기 or 제출할 때 확인
+    await axios.post(`${process.env.REACT_APP_URL}/api/user/signup`, {
+      username:userId,
+    }, {
+      withCredentials:true,
+    })
+    .then((res)=>{
+      console.log(res);
+      setIdCheck(true);
+    })
+    .catch((error)=>{
+      console.log(error);
+    })
+  };
+
+  // 아이디 중복확인
+  useEffect(()=>{
+    setIdCheck(false);
+  },[userId])
+  // 비밀번호 확인
+  useEffect(()=>{
+    setIsPwConfirm(false);
+  }, [pwConfirm]);
+
   const submitHandler = async (e) => {
     e.preventDefault();
+    console.log(111);
     if(userId === ""){
       alert ("아이디를 입력해주세요");
       return;
     }
-    if( userPw === "") {
+    if(userPw === "") {
       alert("비밀번호를 입력해주세요");
       return;
     }
@@ -42,29 +67,26 @@ function SignupForm() {
     pwCheck();
     if(!isPwConfirm) return;
 
+    // 아이디, 비밀번호, 비밀번호 확인 입력 후 회원가입
     const body = {
       username: userId,
       password: userPw,
     };
-    await axios.post(`${BASE_URL}/auth/signup`, body, {
+    await axios.post(`${process.env.REACT_APP_URL}/api/user/signup`, body, {
       withCredentials: true,
     })
     .then((res) => {
-      setCookies('user', res.data.id);
-      console.log("res1",res);
+      setCookies('username', res.data.authorization);
+      // console.log("res1",res);
       alert("회원가입 성공");
+      navigate('/login');
       return res;
-      // navigate('/login');
     })
     .catch((error)=>{
       console.log(error);
       return error;
     })
-    // console.log("res2",response);
   }
-
-
-
 
   const keyDownHandler = (e) => {
     if(e.key === "Enter") {return submitHandler};
@@ -86,7 +108,7 @@ function SignupForm() {
               />
             </StInputBox>
           </StLabel>
-          <StButtonCheck> 중복확인 </StButtonCheck>
+          <StButtonCheck type='button' onClick={onIdCheckHandler}> 중복확인 </StButtonCheck>
         </StIdBox>
         <StPwBox>
           <StLabel htmlFor='pw'> 비밀번호 
