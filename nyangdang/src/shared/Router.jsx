@@ -15,7 +15,7 @@ function Router() {
         <Route path="/" element={<Main />} />
         <Route path="/fixcontent" element={<Fixcontent />} />
         <Route path="/uploadcontent" element={<Uploadcontent />} />
-        <Route path="/detail" element={<Detail />} />
+        <Route path="/detail/:id" element={<Detail />} />
       </Routes>
     </BrowserRouter>
   );

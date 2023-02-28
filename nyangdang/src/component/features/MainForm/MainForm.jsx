@@ -1,4 +1,11 @@
-import { StContentWrap, StImageBoxWrap } from "./MainFormStyled";
+import {
+  StContentWrap,
+  StImageBoxWrap,
+  StAddContentBtn,
+  StOutsideImgBoxWrap,
+  Stimg,
+  StContainer,
+} from "./MainFormStyled";
 import Header from "../../ui/Header/Header";
 import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
@@ -12,45 +19,38 @@ function MainForm() {
   console.log(data);
 
   return (
-    <div>
+    <StContainer>
       <Header />
+      <StAddContentBtn>댕냥 자랑하기</StAddContentBtn>
       <StContentWrap>
-        <Link to={`/uploadcontent/`}>
-          <button>댕냥 자랑하기</button>
-        </Link>
-
+        <Link to={`/uploadcontent/`}></Link>
         {/* 사진1,2번째줄 */}
-        {data.map((v) => (
-          <StImageBoxWrap key={v.id}>
-            <Link to={`/detail/${v.id}`}>
-              <div>
-                {/* 사진 */}
-                {v.title}
-                <div>
-                  {/* 하트 */}
-                  {v.author}
-                </div>
+        <StOutsideImgBoxWrap>
+          <StImageBoxWrap>
+            {data.map((v) => (
+              <div key={v.id}>
+                <Link to={`/detail/${v.id}`}>
+                  {/* 사진 */}
+                  <Stimg src={v.imageUrl} />
+                </Link>
               </div>
-            </Link>
+            ))}
           </StImageBoxWrap>
-        ))}
-
-        {data.map((v) => (
-          <StImageBoxWrap key={v.id}>
-            <Link to={`/detail/${v.id}`}>
-              <div>
-                {/* 사진 */}
-                {v.title}
-                <div>
-                  {/* 하트 */}
-                  {v.author}
+          <StImageBoxWrap>
+            {data
+              .filter((v) => v.imageUrl === true)
+              .map((v) => (
+                <div key={v.id}>
+                  <Link to={`/detail/${v.id}`}>
+                    {/* 사진 */}
+                    {/* <img src={v.imageUrl} />   */}
+                  </Link>
                 </div>
-              </div>
-            </Link>
+              ))}
           </StImageBoxWrap>
-        ))}
+        </StOutsideImgBoxWrap>
       </StContentWrap>
-    </div>
+    </StContainer>
   );
 }
 

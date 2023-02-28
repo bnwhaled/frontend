@@ -6,18 +6,34 @@ const StContentWrap = styled.div`
   align-items: center;
   flex-direction: column;
 `;
+<<<<<<< HEAD
 const StBoxWrap = styled.div`
   display: flex;
+=======
+
+const StBoxWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+>>>>>>> 360585bf0beb73b964e6b75c15a21140680a511b
   flex-direction: row;
 `;
 const StBoxWrap2 = styled.div`
   display: flex;
+<<<<<<< HEAD
   flex-direction: column;
 `;
 const StButtonWrap = styled.div`
   display: flex;
   flex-direction: row;
 `;
+=======
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+`;
+
+>>>>>>> 360585bf0beb73b964e6b75c15a21140680a511b
 const StimageBox = styled.div`
   display: flex;
   justify-content: center;
@@ -28,6 +44,17 @@ const StimageBox = styled.div`
   border: 1px solid black;
   padding: 30px;
 `;
+<<<<<<< HEAD
+=======
+
+const StButtonWrap = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+`;
+
+>>>>>>> 360585bf0beb73b964e6b75c15a21140680a511b
 const StContentBox = styled.div`
   display: flex;
   justify-content: center;
@@ -46,11 +73,19 @@ const StCommentBox = styled.div`
   border: 1px solid black;
   padding: 10px;
 `;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 360585bf0beb73b964e6b75c15a21140680a511b
 const StAddCommentBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 `;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 360585bf0beb73b964e6b75c15a21140680a511b
 const StInputBox = styled.input`
   display: flex;
   justify-content: center;
@@ -69,4 +104,75 @@ export {
   StCommentBox,
   StAddCommentBox,
   StInputBox,
+<<<<<<< HEAD
 };
+=======
+};
+
+// const StContainer = styled.div`
+//   width:100%;
+//   height:100vh;
+//   display: flex;
+//   justify-content: center;
+//   align-items:center;
+//   gap:12px;
+// `;
+
+// const StImg = styled.div`
+//   background-color: gray;
+//   width:40%;
+//   height:60%;
+//   display: flex;
+//   justify-content: center;
+//   align-items: center;
+// `;
+
+// const StBoxRight = styled.div`
+//   width:40%;
+//   height: 60%;
+//   display: flex;
+//   flex-direction: column;
+//   gap:12px;
+// `;
+
+// const StContent = styled.div`
+//   background-color: antiquewhite;
+//   width:90%;
+//   height:40%;
+// `;
+// const StComment = styled.form`
+//   background-color: skyblue;
+//   width:90%;
+//   height:50%;
+// `;
+// const StWriteBox = styled.div`
+//   width:90%;
+//   height:10%;
+//   display: flex;
+//   align-items: center;
+// `;
+// const StLabel = styled.label`
+//   width:15%;
+// `;
+// const StInput = styled.input`
+//   display: block;
+//   width:85%;
+//   height: 36px;
+//   border: solid 1px #dadada;
+//   padding: 10px 14px;
+//   box-sizing: border-box;
+//   background: #fff;
+//   position: relative;
+// `;
+
+// export {
+//   StContainer,
+//   StImg,
+//   StBoxRight,
+//   StContent,
+//   StComment,
+//   StWriteBox,
+//   StInput,
+//   StLabel,
+// };
+>>>>>>> 360585bf0beb73b964e6b75c15a21140680a511b

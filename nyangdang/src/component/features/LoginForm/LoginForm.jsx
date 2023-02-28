@@ -8,6 +8,7 @@ import kakao from "../../../assets/image/kakao_login_large_narrow.png";
 import jwt_decode from "jwt-decode";
 
 
+
 const url = 'https://kauth.kakao.com/oauth/authorize?client_id=513dbab402347b4ce9abb443337b09a6&redirect_uri=http://localhost:3000/api/user/kakao/callback&response_type=code';
 function LoginForm() {
   const navigate = useNavigate();
@@ -18,7 +19,6 @@ function LoginForm() {
   const [data, setData] = useState([]);
   const [bool, setBool] = useState(false);
   const [cookies, setCookies] = useCookies(['user']); // 'user' : 쿠키 이름
-
   // const cookies = new Cookies;
 
   const submitHandler = (e) => {
@@ -51,9 +51,7 @@ function LoginForm() {
     resetId();
     resetPw();
     console.log("response", response);
-    // if (response.status === String(200)) setStatus("인증 완료");
-  };
-
+  }
   // const getData = async () => {
   //   const response = await axios.get(`${BASE_URL}/`, { withCredentials: true,});
   //   console.log("response", response);
@@ -130,5 +128,4 @@ function LoginForm() {
     </StContainer>
   );
 }
-
 export default LoginForm;
