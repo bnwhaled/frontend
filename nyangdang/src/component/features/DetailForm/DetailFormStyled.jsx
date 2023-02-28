@@ -56,13 +56,11 @@ const StCommentBox = styled.div`
   border: 1px solid black;
   padding: 10px;
 `;
-
 const StAddCommentBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 `;
-
 const StInputBox = styled.input`
   display: flex;
   justify-content: center;

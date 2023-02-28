@@ -7,18 +7,21 @@ import { StContentWrap, StImagebox, StImgInput, StImgInputAdd, StImgLabel, StInp
 function UploadcontentForm() {
   const [title, changeTitle] = useInput(e=>e);
   const [contents, changeContent] = useInput(e=>e);
-  // const [image, setImage] = useState();
+  const [image, setImage] = useState();
 
-  const BASE_URL = "http://3.36.51.159:8080/api";
+  const onChangeImgInputHandler = (e) => {
+    const img = e.target.files[0];
+    // console.log('img :', img);
 
-  // const onChangeImgInputHandler = (e) => {
-  //   const img = e.target.files;
-  //   const formData = new FormData();
-  //   formData.append('image', img);
-  //   // console.log(formData);
-  //   // for (const keyValue of formData) console.log(keyValue);
-  //   setImage(formData);
-  // }
+    const formData = new FormData();
+    formData.append('image', img);
+    // console.log(formData);
+    // for (const keyValue of formData) console.log(keyValue);
+    setImage(()=>formData);
+  }
+
+//  data : formData
+// form.appned('image', imageData)
 
   const onSubmitHandler = async (e) => {
     e.preventDefault();
@@ -30,27 +33,27 @@ function UploadcontentForm() {
       alert("내용을 입력해주세요");
       return;
     }
-    // if(!image){
-    //   alert("이미지를 첨부해주세요");
-    //   return;
-    // }
+    const formDataImg = image;
     const body = {
       title,
       contents,
-      // image,
     }
-    await axios.post(`${BASE_URL}/blogs`, body, {
-      withCredentials: true,
-    })
-    .then((res)=> {
-      console.log(res);
-    })
+    const json = JSON.stringify(body);
+    const blob = new Blob([json], { type: 'application/json' });
+
+    formDataImg.append('data', blob);
+
+    console.log("image: ", image);
+
+    const res = await axios({
+      method: 'POST',
+      data: image,
+      url: `${process.env.REACT_APP_URL}/api/blogs`,
+      headers: {"Content-Type":"multipart/form-data"},
+    });
+    console.log(res);
   };
-  // const getData = async () => {
-  //   const response = await axios.get(`${BASE_URL}/blogs`);
-  //   console.log(response);
-  // }
-  // getData();
+
   return (
     <>
     <Header />
@@ -68,9 +71,10 @@ function UploadcontentForm() {
             <StImgInput 
               type="file" 
               id="file" 
+              // value={image}
               accept="image/png, image/jpeg, image/gif"
-              // required
-              // onChange={onChangeImgInputHandler}
+              required
+              onChange={onChangeImgInputHandler}
             />
           </StImagebox>
           <StInputContent value={contents} onChange={changeContent} maxLength={500}  placeholder="내용입력하기...(500자 이내)" type="text" />
