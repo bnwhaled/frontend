@@ -14,10 +14,10 @@ function UploadcontentForm() {
     // console.log('img :', img);
 
     const formData = new FormData();
-    formData.append('formData', img);
+    formData.append('image', img);
     // console.log(formData);
     // for (const keyValue of formData) console.log(keyValue);
-    setImage(formData);
+    setImage(()=>formData);
   }
 
 //  data : formData
@@ -33,24 +33,27 @@ function UploadcontentForm() {
       alert("내용을 입력해주세요");
       return;
     }
-    image.append('title', JSON.stringify(title));
-    image.append('contents', JSON.stringify(contents));
+    const formDataImg = image;
+    const body = {
+      title,
+      contents,
+    }
+    const json = JSON.stringify(body);
+    const blob = new Blob([json], { type: 'application/json' });
 
-    console.log("image: ", typeof(image));
+    formDataImg.append('data', blob);
+
+    console.log("image: ", image);
 
     const res = await axios({
-      method: 'post',
+      method: 'POST',
       data: image,
       url: `${process.env.REACT_APP_URL}/api/blogs`,
-      headers: {"Content-Type":"multipart/form-data, application/json"},
+      headers: {"Content-Type":"multipart/form-data"},
     });
     console.log(res);
   };
-  // const getData = async () => {
-  //   const response = await axios.get(`${BASE_URL}/blogs`);
-  //   console.log(response);
-  // }
-  // getData();
+
   return (
     <>
     <Header />
