@@ -14,13 +14,6 @@ function SignupForm() {
   const [pwConfirm, changePwConfirm, resetPwConfirm] = useInput((e)=>e);
   const [cookies, setCookies] = useCookies(['user']);
   const [idCheck, setIdCheck] = useState(false);
-<<<<<<< HEAD
-=======
-
-  const BASE_URL = "http://3.36.51.159:8080/api/user";
-
-  console.log(idCheck);
->>>>>>> 360585bf0beb73b964e6b75c15a21140680a511b
 
   const pwCheck = () => {
     if(userPw !== pwConfirm){
@@ -32,13 +25,8 @@ function SignupForm() {
   }
 
   const onIdCheckHandler = async() => {
-<<<<<<< HEAD
     // 아이디 중복확인 api 확인하기 or 제출할 때 확인
     await axios.post(`${process.env.REACT_APP_URL}/api/user/signup`, {
-=======
-    // 아이디 중복확인
-    await axios.post(`${BASE_URL}/signup`, {
->>>>>>> 360585bf0beb73b964e6b75c15a21140680a511b
       username:userId,
     }, {
       withCredentials:true,
@@ -84,19 +72,11 @@ function SignupForm() {
       username: userId,
       password: userPw,
     };
-<<<<<<< HEAD
     await axios.post(`${process.env.REACT_APP_URL}/api/user/signup`, body, {
       withCredentials: true,
     })
     .then((res) => {
       setCookies('username', res.data.authorization);
-=======
-    await axios.post(`${BASE_URL}/signup`, body, {
-      withCredentials: true,
-    })
-    .then((res) => {
-      setCookies('user', res.data.id);
->>>>>>> 360585bf0beb73b964e6b75c15a21140680a511b
       // console.log("res1",res);
       alert("회원가입 성공");
       navigate('/login');

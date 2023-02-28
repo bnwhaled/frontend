@@ -6,34 +6,20 @@ const StContentWrap = styled.div`
   align-items: center;
   flex-direction: column;
 `;
-<<<<<<< HEAD
-const StBoxWrap = styled.div`
-  display: flex;
-=======
 
 const StBoxWrap = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
->>>>>>> 360585bf0beb73b964e6b75c15a21140680a511b
   flex-direction: row;
 `;
 const StBoxWrap2 = styled.div`
   display: flex;
-<<<<<<< HEAD
-  flex-direction: column;
-`;
-const StButtonWrap = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-=======
   justify-content: center;
   align-items: center;
   flex-direction: column;
 `;
 
->>>>>>> 360585bf0beb73b964e6b75c15a21140680a511b
 const StimageBox = styled.div`
   display: flex;
   justify-content: center;
@@ -44,8 +30,6 @@ const StimageBox = styled.div`
   border: 1px solid black;
   padding: 30px;
 `;
-<<<<<<< HEAD
-=======
 
 const StButtonWrap = styled.div`
   display: flex;
@@ -54,7 +38,6 @@ const StButtonWrap = styled.div`
   flex-direction: row;
 `;
 
->>>>>>> 360585bf0beb73b964e6b75c15a21140680a511b
 const StContentBox = styled.div`
   display: flex;
   justify-content: center;
@@ -73,19 +56,11 @@ const StCommentBox = styled.div`
   border: 1px solid black;
   padding: 10px;
 `;
-<<<<<<< HEAD
-=======
-
->>>>>>> 360585bf0beb73b964e6b75c15a21140680a511b
 const StAddCommentBox = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
 `;
-<<<<<<< HEAD
-=======
-
->>>>>>> 360585bf0beb73b964e6b75c15a21140680a511b
 const StInputBox = styled.input`
   display: flex;
   justify-content: center;
@@ -104,9 +79,6 @@ export {
   StCommentBox,
   StAddCommentBox,
   StInputBox,
-<<<<<<< HEAD
-};
-=======
 };
 
 // const StContainer = styled.div`
@@ -175,4 +147,3 @@ export {
 //   StInput,
 //   StLabel,
 // };
->>>>>>> 360585bf0beb73b964e6b75c15a21140680a511b

@@ -1,16 +1,5 @@
 import styled from "styled-components";
 
-<<<<<<< HEAD
-const StHeader = styled.header`
-  background-color: beige;
-  padding: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const StContentWrap = styled.div`
-=======
 const StAddContentBtn = styled.button`
   background-color: #9f4c4c;
   color: white;
@@ -23,23 +12,10 @@ const StAddContentBtn = styled.button`
 `;
 
 const StContainer = styled.div`
->>>>>>> 360585bf0beb73b964e6b75c15a21140680a511b
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
-<<<<<<< HEAD
-`;
-
-const StImageBoxWrap = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: row;
-`;
-
-export { StHeader, StContentWrap, StImageBoxWrap };
-=======
   position: relative;
   width: 100%;
   height: auto;
@@ -102,4 +78,3 @@ export {
   Stimg,
   StContainer,
 };
->>>>>>> 360585bf0beb73b964e6b75c15a21140680a511b
