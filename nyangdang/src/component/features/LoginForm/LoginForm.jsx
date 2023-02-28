@@ -44,7 +44,7 @@ function LoginForm() {
       const token = response.headers.authorization;
       setCookies('username', response.headers.authorization);  // setCookie(쿠키이름, 쿠키에 넣을 값, 옵션)
       const decodedUserInfo = jwt_decode(token) // 토큰 decode
-      localStorage.setItem('userInfo', JSON.stringify(decodedUserInfo))
+      localStorage.setItem('username', JSON.stringify(decodedUserInfo))
     }).catch(error => {
       console.log(error)
     });

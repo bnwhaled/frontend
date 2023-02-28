@@ -24,20 +24,13 @@ function SignupForm() {
     }
   }
 
-  const onIdCheckHandler = async() => {
+  const onIdCheckHandler = async (username) => {
     // 아이디 중복확인 api 확인하기 or 제출할 때 확인
-    await axios.post(`${process.env.REACT_APP_URL}/api/user/signup`, {
-      username:userId,
-    }, {
+    const response = await axios.get(`${process.env.REACT_APP_URL}/api/user/${username}/exists`, {
       withCredentials:true,
     })
-    .then((res)=>{
-      console.log(res);
-      setIdCheck(true);
-    })
-    .catch((error)=>{
-      console.log(error);
-    })
+    if(response) setIdCheck(true);
+    console.log(response);
   };
 
   // 아이디 중복확인
@@ -108,7 +101,7 @@ function SignupForm() {
               />
             </StInputBox>
           </StLabel>
-          <StButtonCheck type='button' onClick={onIdCheckHandler}> 중복확인 </StButtonCheck>
+          <StButtonCheck type='button' onClick={()=>onIdCheckHandler(userId)}> 중복확인 </StButtonCheck>
         </StIdBox>
         <StPwBox>
           <StLabel htmlFor='pw'> 비밀번호 
