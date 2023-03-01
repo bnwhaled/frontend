@@ -1,5 +1,6 @@
 //axios 요청 들어가는 모든 모듈
 import axios from "axios";
+import { getCookie } from "../until/cookies";
 
 //조회
 const getblogs = async () => {
@@ -15,4 +16,12 @@ const postblogs = async (newComment) => {
     newComment
   );
 };
-export { getblogs, postblogs };
+
+const instance = axios.create({
+  baseURL: process.env.REACT_APP_URL,
+  headers: {
+    Authorization: `${getCookie('username')}}`,
+  }
+});
+
+export { getblogs, postblogs, instance };
