@@ -19,6 +19,7 @@ function UploadcontentForm() {
     // console.log(formData);
     // for (const keyValue of formData) console.log(keyValue);
     setImage(formData);
+    // console.log(formData.get('image'));
   }
 
   const onSubmitHandler = async (e) => {
@@ -32,20 +33,23 @@ function UploadcontentForm() {
       return;
     }
     // const image = imagea;
-    const requestDto = {
+    const body = {
       title,
       contents,
     }
     // console.log("body: ", body);
-    const json = JSON.stringify(requestDto);
-    const blob = new Blob([json], { type: 'application/json' });
-    image.append('requestDto', blob);
+    const json = JSON.stringify(body);
+    // console.log("json", json);
+    const requestDto = new Blob([json], { type: 'application/json' });
+    // console.log("blob", blob);
+    // image.append('requestDto', blob);
+    console.log("image", ...image);
     // formDataImg.append("title", JSON.stringify(title));
     // formDataImg.append("contents", JSON.stringify(contents));
-    console.log("formDataImg: ", image);
-
+    console.log("formDataImg: ", image.get("image"));
+    // console.log("formDataImg: ", image.get("requestDto"));
     instance.post('/api/blogs', 
-    {image},
+    {image, requestDto},
     {headers: {"Content-Type":"multipart/form-data"}}
     )
 
@@ -54,7 +58,10 @@ function UploadcontentForm() {
     <>
     <Header />
     <StContainer>
-      <StContentWrap onSubmit={onSubmitHandler}>
+      <StContentWrap 
+        enctype="multipart/form-data"
+        onSubmit={onSubmitHandler}
+      >
           <h3>글 작성하기</h3>
           <StTitleBox>
             <StLabel htmlFor="title"> 제목 </StLabel>
