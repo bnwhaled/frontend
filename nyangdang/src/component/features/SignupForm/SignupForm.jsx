@@ -13,8 +13,7 @@ function SignupForm() {
   const [isPwConfirm, setIsPwConfirm] = useState(false);
   const [pwConfirm, changePwConfirm, resetPwConfirm] = useInput((e)=>e);
   const [cookies, setCookies] = useCookies(['user']);
-  const [idCheck, setIdCheck] = useState(true);
-  const [idCheckTrue, setIdCheckTrue] = useState(false);
+  const [idCheck, setIdCheck] = useState(false);
 
   const pwCheck = () => {
     if(userPw !== pwConfirm){
@@ -25,26 +24,26 @@ function SignupForm() {
     }
   }
 
-  const onIdCheckHandler = async (username) => {
-    if(username.length < 5 || username.length > 10){
-      alert("아이디를 조건에 맞춰 입력해주세요");
-      return;
-    }
+  const onIdCheckHandler = async() => {
     // 아이디 중복확인 api 확인하기 or 제출할 때 확인
-    const response = await axios.get(`${process.env.REACT_APP_URL}/api/user/${username}/exists`,{
-      withCredentials:true
+    await axios.post(`${process.env.REACT_APP_URL}/api/user/signup`, {
+      username:userId,
+    }, {
+      withCredentials:true,
     })
-    // console.log(response.data);
-    if(!response.data) setIdCheck(false);
-    else setIdCheckTrue(true);
+    .then((res)=>{
+      console.log(res);
+      setIdCheck(true);
+    })
+    .catch((error)=>{
+      console.log(error);
+    })
   };
 
   // 아이디 중복확인
   useEffect(()=>{
-    setIdCheck(true);
-    setIdCheckTrue(false);
+    setIdCheck(false);
   },[userId])
-
   // 비밀번호 확인
   useEffect(()=>{
     setIsPwConfirm(false);
@@ -52,7 +51,7 @@ function SignupForm() {
 
   const submitHandler = async (e) => {
     e.preventDefault();
-
+    console.log(111);
     if(userId === ""){
       alert ("아이디를 입력해주세요");
       return;
@@ -65,12 +64,7 @@ function SignupForm() {
       alert("비밀번호확인을 입력해주세요");
       return;
     }
-    // if(userPw.test(/^[a-zA-Z0-9\\d`~!@#$%^&*()-_=+]{8,24}$")/))
     pwCheck();
-    if(idCheck) {
-      alert("아이디 중복확인을 해주세요");
-      return;
-    }
     if(!isPwConfirm) return;
 
     // 아이디, 비밀번호, 비밀번호 확인 입력 후 회원가입
@@ -83,7 +77,8 @@ function SignupForm() {
     })
     .then((res) => {
       setCookies('username', res.data.authorization);
-      alert(res.data.msg);
+      // console.log("res1",res);
+      alert("회원가입 성공");
       navigate('/login');
       return res;
     })
@@ -102,21 +97,18 @@ function SignupForm() {
       <h3>회원가입</h3>
       <StContainerForm onSubmit={submitHandler}>
         <StIdBox>
-          <StLabel htmlFor='id'> 아이디
+          <StLabel htmlFor='id'> 아이디 
             <StInputBox>
               <StInput 
                 id="id"
                 type="text"
-                placeholder='아이디를 입력하세요(5자 이상 10자 이하)'
+                placeholder='아이디를 입력하세요'
                 value={userId}
                 onChange={changeUserId}
               />
             </StInputBox>
           </StLabel>
-          <StButtonCheck type='button' onClick={()=>onIdCheckHandler(userId)}> 중복확인 
-          {!idCheck ? <h3>가입 가능한 아이디입니다</h3> : null}
-          {idCheckTrue ? <h2>이미 존재하는 아이디입니다</h2> : null}
-          </StButtonCheck>
+          <StButtonCheck type='button' onClick={onIdCheckHandler}> 중복확인 </StButtonCheck>
         </StIdBox>
         <StPwBox>
           <StLabel htmlFor='pw'> 비밀번호 
@@ -124,7 +116,7 @@ function SignupForm() {
               <StInput 
                 id="pw"
                 type="password"
-                placeholder='비밀번호를 입력하세요()' 
+                placeholder='비밀번호를 입력하세요' 
                 value={userPw}
                 onChange={changeUserPw}
               />
